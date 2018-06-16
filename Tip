@@ -6,3 +6,20 @@ https://stackoverflow.com/questions/38194650/no-session-repository-could-be-auto
 
 #스프링 부트 세션 가져오기.
 http://itcoolly.tistory.com/153
+
+#Auth 인증 후 원하는 값 꺼내기
+https://stackoverflow.com/questions/48057860/accessing-data-in-principal-in-spring
+
+
+#google.yml 내용.
+google:
+  client: 
+    clientId: 발급받은 id
+    clientSecret: 발급받은 secret
+    accessTokenUri: https://accounts.google.com/o/oauth2/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/auth
+    clientAuthenticationScheme: form
+    scope:  email, profile
+  resource: 
+    userInfoUri: https://www.googleapis.com/oauth2/v2/userinfo
+    

@@ -1,8 +1,13 @@
 package com.jmlim.signup.controller.support;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -28,4 +33,19 @@ public class AccountDto {
 		private String repeatPassword;
 	}
 
+	@Data
+	public static class Response implements Serializable {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		private Long id;
+		private String email;
+
+		// http://stackoverflow.com/questions/29027475/date-format-in-the-json-output-using-spring-boot
+		// json으로 데이터 내보낼 시 포멧이 원하는 대로 나오지 않아 처리한 부분
+		@JsonFormat(pattern = "yyyy-MM-dd")
+		private Date joinDate;
+	}
 }

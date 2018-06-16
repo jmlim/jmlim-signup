@@ -5,13 +5,11 @@ spring:
     password: 1111
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-  session:
-    store-type: none #임시
     
 
 

@@ -33,9 +33,12 @@ public class Account implements Serializable {
 	@Column(length = 50, unique = true, nullable = false)
 	private String email;
 
-	@Column(length = 1024, nullable = false)
+	@Column(length = 1024)
 	private String password;
 
+	@Column(length = 20)
+	private String type;
+	
 	@Transient
 	private String repeatPassword;
 
