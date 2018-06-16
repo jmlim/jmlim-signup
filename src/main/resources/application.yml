@@ -1,0 +1,25 @@
+spring: 
+  datasource:
+    url: jdbc:mariadb://localhost:3306/jpasample
+    username: jpasample
+    password: 1111
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  session:
+    store-type: none #임시
+    
+
+
+logging:
+  level:
+    org.hibernate.sql: debug
+    
+server:
+  jsp-servlet:
+    init-parameters: 
+      development: true

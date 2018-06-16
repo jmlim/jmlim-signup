@@ -1,0 +1,8 @@
+
+# 세션 스토어 타입 임시 none 처리.
+https://stackoverflow.com/questions/38194650/no-session-repository-could-be-auto-configured-check-your-configuration-session
+
+#스프링 시큐리티 starter 먼저 닫고 테스트
+
+#스프링 부트 세션 가져오기.
+http://itcoolly.tistory.com/153
