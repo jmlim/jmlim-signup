@@ -51,13 +51,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Filter oauth2Filter() {
 		CompositeFilter filter = new CompositeFilter();
 		List<Filter> filters = new ArrayList<>();
-		// filters.add(oauth2Filter(facebook(), "/login/facebook", "facebook"));
+		filters.add(oauth2Filter(facebook(), "/login/facebook", "facebook"));
 		filters.add(oauth2Filter(google(), "/login/google", "google"));
 		// filters.add(oauth2Filter(kakao(), "/login/kakao", SocialType.KAKAO));
 		filter.setFilters(filters);
 		return filter;
 	}
 
+
+	@Bean
+	@ConfigurationProperties("facebook")
+	public ClientResources facebook() {
+		return new ClientResources();
+	}
+	
 	@Bean
 	@ConfigurationProperties("google")
 	public ClientResources google() {

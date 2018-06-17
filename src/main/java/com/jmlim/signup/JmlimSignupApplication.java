@@ -14,7 +14,7 @@ import com.jmlim.signup.exception.ValidCustomException;
 
 @SpringBootApplication
 public class JmlimSignupApplication {
-	private static final String PROPERTIES = "spring.config.location=classpath:/google.yml";
+	private static final String PROPERTIES = "spring.config.location=classpath:/google.yml,classpath:/facebook.yml";
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(JmlimSignupApplication.class).properties(PROPERTIES).run(args);
