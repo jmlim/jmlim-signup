@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -12,8 +13,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
- * 원하는 데이터만 주고받고 하기위해 Dto 생성. Rest 방식으로 개발할때 필요. 기존방식은 dto를 사용하지 않더라도 자기가 원하는
- * 내용만 반환할 수 있음.
+ * 원하는 데이터만 주고받고 하기위해 Dto 생성. Rest 방식으로 개발할때 필요. 
+ * 기존방식은 dto를 사용하지 않더라도 자기가 원하는 내용만 반환할 수 있음.
+ * 
+ * 회원 정보를 나타내기 위해 Account클래스만 사용하지 않은 이유는, 
+ * Entity 클래스를 파라미터 혹은 View 데이터로 사용하게 되면 변화에 대응하기가 힘들기 때문
  */
 // TODO validation 처리
 public class AccountDto {
@@ -22,6 +26,7 @@ public class AccountDto {
 	public static class Create {
 
 		@NotBlank(message = "인증할 아이디를 입력해주세요.")
+		@Email(message = "메일의 양식을 지켜주세요.")
 		private String email;
 
 		@NotBlank

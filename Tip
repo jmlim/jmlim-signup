@@ -23,3 +23,9 @@ google:
   resource: 
     userInfoUri: https://www.googleapis.com/oauth2/v2/userinfo
     
+    
+#validate 공통모듈
+ http://jojoldu.tistory.com/129
+
+#modelMapper 관련.
+ http://heowc.tistory.com/65

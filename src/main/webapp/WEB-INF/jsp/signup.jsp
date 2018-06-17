@@ -15,7 +15,7 @@
 <body>
 <a class="facebook-login-text" href="/login/facebook">facebook으로 가입</a><br/>
 <a class="facebook-login-text" href="/login/google">google로 가입</a><br/>
-<form name='f' id="signup-form" action="/signup" method='POST' class="signup-form" >
+<form name='f' id="signup-form" method='POST' class="signup-form" >
 	<input id="_csrf" type="hidden" name="${_csrf.parameterName}"
 		value="${_csrf.token}" />
       <div class="sminputs">
@@ -35,8 +35,7 @@
           </div>
       </div>
       <div class="simform__actions">
-         <!--  <input class="submit" id="submit" name="commit" type="submit" value="회원가입" /> -->
-          <input class="ajax_submit" id="ajax_submit" name="commit" type="button" value="회원가입_ajax" />
+          <input class="ajax_submit" id="ajax_submit" name="commit" type="button" value="회원가입" />
       </div>
 </form>
 
@@ -45,7 +44,7 @@
 	$("#ajax_submit").on("click", function(e) {
 		console.log(e);
 		var form = $("#signup-form");
-		var url = '/ajax_signup';
+		var url = '/signup';
 		var type = 'POST';
 		var _csrf = $('#_csrf').val();
 		if (console) {
@@ -70,7 +69,16 @@
 			}.bind(this),
 			error : function(xhr, status, err) {
 				var errors = xhr.responseJSON.errors;
-				console.log(errors)
+				$('.error-message').remove();
+				$.each(errors, function(ind, obj) {
+					var $field = $('#'+obj.field);
+
+			        if($field && $field.length > 0){
+			            $field.siblings('.error-message').remove();
+			            $field.after('<div class="error-message">'+obj.defaultMessage+'</div>');
+			        }
+				});
+				//<div class="error-message">이메일 에러</span>
 			}.bind(this)
 		});
 	});
