@@ -56,7 +56,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 			throws IOException, ServletException {
 		System.out.println(type);
 		// https://stackoverflow.com/questions/48057860/accessing-data-in-principal-in-spring
-		HashMap data = (HashMap) ((OAuth2Authentication) auth).getUserAuthentication().getDetails();
+		HashMap<?, ?> data = (HashMap<?, ?>) ((OAuth2Authentication) auth).getUserAuthentication().getDetails();
 
 		String email = data.get("email").toString();
 		Account account = accountRepository.findByEmail(email);

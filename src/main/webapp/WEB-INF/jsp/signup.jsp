@@ -63,8 +63,8 @@
 			},
 			success : function(data) {
 				if (data) {
-					console.log(data);
-					
+					alert("가입이 완료되었습니다. 로그인 해주세요.")
+					location.href = "/";
 				}
 			}.bind(this),
 			error : function(xhr, status, err) {

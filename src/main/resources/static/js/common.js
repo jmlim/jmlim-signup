@@ -20,7 +20,7 @@ function coAjax(reqParam) {
 	param.type = "GET";
 	param.success = function(data) {
 	};
-	param.error = function(data) {
+	param.error = function(xhr, status, err) {
 	};
 	param.data = {};
 	param.beforeSend = function(data) {
@@ -41,9 +41,9 @@ function coAjax(reqParam) {
 			//console.log(data);
 			//albumsRenderer(data);
 	    },
-	    error: function (e) {
-	    	param.error(e);
-			console.log('error', e);
+	    error: function(xhr, status, err)  {
+	    	param.error(xhr, status, err) ;
+			console.log('error', xhr);
 	    }
 	});	
 }

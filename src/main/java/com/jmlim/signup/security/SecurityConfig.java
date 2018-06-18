@@ -105,7 +105,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/admin/**")
-			.hasRole("USER").antMatchers("/**")
+			.hasRole("ADMIN")
+			.antMatchers("/article/**")
+			.hasRole("USER")
+			.antMatchers("/**")
 			.permitAll()
 				.and()
 				//oauth 관련 필터 추가.
@@ -113,7 +116,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin().loginPage("/signin")
 						.loginProcessingUrl("/signin")
 						.defaultSuccessUrl("/")
-			.failureUrl("/signin").and().logout();
+			.failureUrl("/signin").and()
+			// http://www.baeldung.com/spring-security-logout
+			.logout()
+				.logoutUrl("/signout")
+				.logoutSuccessUrl("/");
 	}
 
 	@Bean
