@@ -32,4 +32,6 @@ google:
  
 #spring jsp security 표현식 참고
  https://github.com/okjsp/okmakeover/wiki/Guide-%EA%B0%9C%EB%B0%9C-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EC%84%B8%EC%85%98-&-%EA%B6%8C%ED%95%9C-%EC%A0%95%EC%B1%85
- 
+
+#spring data jpa repository 참고
+ http://ojc.asia/bbs/board.php?bo_table=LecJpa&wr_id=281

@@ -28,11 +28,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.jmlim.signup.controller.support.ArticleDto;
+import com.jmlim.signup.controller.support.CommentDto;
 import com.jmlim.signup.domain.Account;
 import com.jmlim.signup.domain.Article;
+import com.jmlim.signup.domain.Comment;
 import com.jmlim.signup.exception.ValidCustomException;
 import com.jmlim.signup.repo.AccountRepository;
 import com.jmlim.signup.repo.ArticleRepository;
+import com.jmlim.signup.repo.CommentRepository;
 
 @Controller
 @RequestMapping("/article")
@@ -40,8 +43,13 @@ public class ArticleController {
 
 	@Autowired
 	private AccountRepository accountRepo;
+
 	@Autowired
 	private ArticleRepository articleRepo;
+
+	@Autowired
+	private CommentRepository commentRepo;
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -151,6 +159,7 @@ public class ArticleController {
 	@DeleteMapping(value = "/article/{id}")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
+	@Transactional
 	public Long delete(@PathVariable Long id) {
 		Article article = articleRepo.findOne(id);
 		String writer = article.getWriter().getEmail();
@@ -168,9 +177,75 @@ public class ArticleController {
 				throw new ValidCustomException("본인이 작성한 글만 삭제가 가능합니다.", "writer");
 			}
 		}
-
+		//댓글삭제
+		commentRepo.deleteByParent(article);
 		articleRepo.delete(article);
 		return id;
+	}
+
+	/** comment */
+	// http://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
+	// 의 Table 1.1. 참조
+	// albums?page=0&size=20&sort=username,asc$sort=name,asc
+	@GetMapping(value = "/article/{id}/comment")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public Page<Comment> findCommentAll(Pageable pageable, @PathVariable Long id) {
+		Article article = articleRepo.findOne(id);
+		return commentRepo.findByParent(article, pageable);
+	}
+
+	/**
+	 * @param commentDto
+	 * @param id
+	 * @return
+	 */
+	@PostMapping(value = "/article/{id}/comment")
+	@ResponseBody
+	@Transactional
+	public Long commentCreate(@RequestBody @Valid CommentDto.Create commentDto, @PathVariable Long id) {
+		Comment comment = modelMapper.map(commentDto, Comment.class);
+		comment.setCreatedDate(new Date());
+
+		Article parent = articleRepo.findOne(id);
+		comment.setParent(parent);
+		// 현재 세션에 있는 사용자 정보
+		Account writer = accountRepo.findByEmail(getUsername());
+		comment.setWriter(writer);
+		id = commentRepo.save(comment).getId();
+		return id;
+	}
+
+	/** comment end */
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	// 더 좋은 방법이 있는지 찾아볼것.
+	@DeleteMapping(value = "/article/{articleId}/comment/{commentId}")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public Long delete(@PathVariable Long articleId, @PathVariable Long commentId) {
+		Comment comment = commentRepo.findOne(commentId);
+		String writer = comment.getWriter().getEmail();
+
+		boolean hasAdminRole = false;
+		for (GrantedAuthority autority : getAuthorities()) {
+			if (autority.getAuthority().equals("ROLE_ADMIN")) {
+				hasAdminRole = true;
+			}
+		}
+
+		// ADMIN 권한은 삭제 가능.
+		if (!hasAdminRole) {
+			if (!getUsername().equals(writer)) {
+				throw new ValidCustomException("본인이 작성한 글만 삭제가 가능합니다.", "writer");
+			}
+		}
+
+		commentRepo.delete(comment);
+		return commentId;
 	}
 
 	/*** Security 관련 *********/
@@ -189,5 +264,5 @@ public class ArticleController {
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		return authorities;
 	}
-	/*** Security 관련 끝*********/
+	/*** Security 관련 끝 *********/
 }
