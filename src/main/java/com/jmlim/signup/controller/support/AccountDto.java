@@ -25,8 +25,8 @@ public class AccountDto {
 	@Data
 	public static class Create {
 
-		@NotBlank(message = "인증할 아이디를 입력해주세요.")
-		@Email(message = "메일의 양식을 지켜주세요.")
+		@NotBlank(message = "인증할 아이디를 입력해주세요.testtesttest")
+		@Email(message = "메일의 양식을 지켜주세요.testtesttest")
 		private String email;
 
 		@NotBlank
