@@ -1,0 +1,6 @@
+alert:
+ confirm: "确认"
+ cancel: "取消"
+ loginEmail: "请输入用户名(邮箱)。"
+ loginPassword: "请输入密码。"
+ loginFail: "请重新确认用户名(邮箱)或者密码。"

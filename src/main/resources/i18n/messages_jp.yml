@@ -1,0 +1,6 @@
+alert:
+ confirm: "確認"
+ cancel: "取り消し"
+ loginEmail: "ID(Eメール）を入力してください"
+ loginPassword: "パスワードを入力してください"
+ loginFail: "ID(Eメール）またはパスワードをもう一度ご確認ください。"

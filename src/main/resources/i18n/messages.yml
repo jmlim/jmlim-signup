@@ -1,0 +1,6 @@
+alert:
+ confirm: "확인"
+ cancel: "취소"
+ loginEmail: "아이디(이메일)를 입력해 주세요."
+ loginPassword: "비밀번호를 입력해 주세요."
+ loginFail: "아아디(이메일) 또는 비밀번호가 올바르지 않습니다."

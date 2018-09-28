@@ -1,0 +1,6 @@
+alert:
+ confirm: "Ok"
+ cancel: "Cancel"
+ loginEmail: "Please enter your ID(Email)."
+ loginPassword: "Please enter a password."
+ loginFail: "The email or password is invalid."

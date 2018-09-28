@@ -10,8 +10,10 @@ spring:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-    
 
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
 
 logging:
   level:
