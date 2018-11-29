@@ -15,6 +15,10 @@ spring:
     basename: i18n/messages
     encoding: UTF-8
 
+  redis:
+    host: 192.168.0.156
+    port: 6379
+
 logging:
   level:
     org.hibernate.sql: debug

@@ -33,11 +33,11 @@ public class SignController {
 		return "index";
 	}
 
-	@GetMapping("/signin")
-	public String siginin(Map<String, Object> model) {
-		model.put("time", new Date());
-		return "signin";
-	}
+    @GetMapping("/signin")
+    public String siginin(Map<String, Object> model) {
+        model.put("time", new Date());
+        return "signin";
+    }
 
 	@GetMapping("/signup")
 	public String siginup(Map<String, Object> model) {

@@ -50,9 +50,14 @@
 			<artifactId>spring-session</artifactId>
 		</dependency>
 		<!-- jdbc 세션관리.. 추후 redis로 변경해보기. -->
-		<dependency>
+<!--		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>-->
+		<!-- redis 세션관리 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 		<!-- maria db -->
 		<dependency>
