@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/jspf/head.jspf"%>
 </head>
 <body id="top">
-<spring:message code="alert.loginEmail" />
+<%--<spring:message code="alert.loginEmail" />--%>
 	<!-- 회원 권한이 없을 때 -->
 	<sec:authorize access="!hasRole('ROLE_USER')">
       	<a href="/signin">로그인</a><br/>

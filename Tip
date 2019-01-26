@@ -35,3 +35,9 @@ google:
 
 #spring data jpa repository 참고
  http://ojc.asia/bbs/board.php?bo_table=LecJpa&wr_id=281
+
+# 윈도우 환경에서 redis 쓰기 (가상머신에 깔기 귀찮을때..)
+https://dgkim5360.tistory.com/entry/install-redis-for-linux-or-windows
+
+#구글 api 관련
+https://console.developers.google.com/apis/credentials
