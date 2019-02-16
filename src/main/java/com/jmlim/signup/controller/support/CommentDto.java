@@ -1,8 +1,7 @@
 package com.jmlim.signup.controller.support;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import lombok.Data;
+import org.hibernate.validator.constraints.NotBlank;
 
 public class CommentDto {
 	@Data

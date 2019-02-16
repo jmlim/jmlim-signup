@@ -41,3 +41,6 @@ https://dgkim5360.tistory.com/entry/install-redis-for-linux-or-windows
 
 #구글 api 관련
 https://console.developers.google.com/apis/credentials
+
+#필드 주입(Field Injection) 대신 생성자 주입(Constructor Injection)을 사용해야 하는 이유
+https://zorba91.tistory.com/entry/Spring%ED%95%84%EB%93%9C-%EC%A3%BC%EC%9E%85Field-Injection-%EB%8C%80%EC%8B%A0-%EC%83%9D%EC%84%B1%EC%9E%90-%EC%A3%BC%EC%9E%85Constructor-Injection%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%B4%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0

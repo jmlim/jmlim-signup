@@ -1,31 +1,30 @@
 package com.jmlim.signup.controller;
 
-import java.util.Date;
-import java.util.Map;
-
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jmlim.signup.controller.support.AccountDto;
+import com.jmlim.signup.exception.ValidCustomException;
+import com.jmlim.signup.repo.AccountRepository;
+import com.jmlim.signup.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jmlim.signup.controller.support.AccountDto;
-import com.jmlim.signup.exception.ValidCustomException;
-import com.jmlim.signup.repo.AccountRepository;
-import com.jmlim.signup.service.AccountService;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.Map;
 
 @Controller
 public class SignController {
 
-	@Autowired
-	private AccountRepository accountRepo;
+	private final AccountRepository accountRepo;
+	private final AccountService accountService;
 
-	@Autowired
-	private AccountService accountService;
+	public SignController(AccountRepository accountRepo, AccountService accountService) {
+		this.accountRepo = accountRepo;
+		this.accountService = accountService;
+	}
 
 	@GetMapping("/")
 	public String index(Map<String, Object> model) {

@@ -1,16 +1,13 @@
 package com.jmlim.signup.controller.support;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import lombok.Data;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 원하는 데이터만 주고받고 하기위해 Dto 생성. Rest 방식으로 개발할때 필요. 

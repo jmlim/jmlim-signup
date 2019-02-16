@@ -1,10 +1,9 @@
 package com.jmlim.signup.controller.support;
 
-import javax.validation.constraints.Size;
-
+import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
-import lombok.Data;
+import javax.validation.constraints.Size;
 
 public class ArticleDto {
 	@Data

@@ -87,6 +87,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 		}
 		// 연결된 계정이 없는경우
 		else {
+
+			// TODO : 계정생성하는 부분 transaction 처리 필요.
 			account = new Account();
 			account.setEmail(email);
 			account.setType(type);
