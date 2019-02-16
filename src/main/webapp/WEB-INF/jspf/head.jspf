@@ -4,6 +4,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>회원가입 페이지</title>
+<!-- template tag 지원하지 않는 브라우저(ie...) 로 인한 추가 작업 -->
+<script src="/js/polyfill/template.js"></script>
 <!-- <meta name="description"
 	content="Beautiful Wedding Template built with Bootstrap Framework for creating Wedding Website by TemplateFlip.com" />
 <link rel="apple-touch-icon" sizes="180x180"

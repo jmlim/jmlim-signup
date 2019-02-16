@@ -39,7 +39,7 @@
       </div>
 </form>
 
-<script src="js/common.js"></script>
+<script src="/js/global/common.js"></script>
 <script type="text/javascript">
 	$("#ajax_submit").on("click", function(e) {
 		console.log(e);
