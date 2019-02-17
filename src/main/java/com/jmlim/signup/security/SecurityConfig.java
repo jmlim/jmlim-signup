@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.Filter;
 
+import com.jmlim.signup.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -43,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	AccountRepository accountRepository;
+
+	@Autowired
+	AccountService accountService;
 
 	@Autowired
 	AccountRoleRepository roleRepository;
@@ -88,7 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		filter.setRestTemplate(template);
 		filter.setTokenServices(
 				new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId()));
-		filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(socialType, accountRepository, roleRepository));
+		filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(socialType, accountRepository, accountService, roleRepository));
 		//filter.setAuthenticationSuccessHandler(
 		//		(request, response, authentication) -> response.sendRedirect(redirectUrl.toString()));
 		filter.setAuthenticationFailureHandler((request, response, exception) -> response.sendRedirect("/error"));

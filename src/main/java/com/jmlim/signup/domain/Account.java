@@ -1,5 +1,6 @@
 package com.jmlim.signup.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jmlim.signup.converter.LocalDateTimePersistenceConverter;
 import lombok.*;
@@ -38,5 +39,6 @@ public class Account implements Serializable {
 
 	@Column(nullable = false)
 	@Convert(converter = LocalDateTimePersistenceConverter.class)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime joinDate;
 }

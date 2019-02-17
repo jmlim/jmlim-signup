@@ -5,6 +5,7 @@ import com.jmlim.signup.domain.Account;
 import com.jmlim.signup.domain.AccountRole;
 import com.jmlim.signup.repo.AccountRepository;
 import com.jmlim.signup.repo.AccountRoleRepository;
+import com.jmlim.signup.service.AccountService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,6 +29,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private AccountRepository accountRepository;
 
+    private AccountService accountService;
+
     private AccountRoleRepository roleRepository;
 
     /**
@@ -35,10 +38,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
      * @param accountRepository
      * @param roleRepository
      */
-    public OAuth2SuccessHandler(String type, AccountRepository accountRepository,
+    public OAuth2SuccessHandler(String type, AccountRepository accountRepository, AccountService accountService,
                                 AccountRoleRepository roleRepository) {
         this.type = type;
         this.accountRepository = accountRepository;
+        this.accountService = accountService;
         this.roleRepository = roleRepository;
     }
 
@@ -85,17 +89,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         }
         // 연결된 계정이 없는경우
         else {
-
-            // TODO : 계정생성하는 부분 transaction 처리 필요.
             account = Account.builder()
                     .email(email)
                     .type(type)
                     .joinDate(LocalDateTime.now()).build();
-            accountRepository.save(account);
-            AccountRole newRole = AccountRole.builder()
-                    .parent(account)
-                    .role("ROLE_USER").build();
-            roleRepository.save(newRole);
+            accountService.save(account);
 
             List<AccountRole> roles = roleRepository.findByParent(account);
             List<GrantedAuthority> authorities = new ArrayList<>();

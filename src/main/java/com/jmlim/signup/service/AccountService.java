@@ -6,7 +6,6 @@ import com.jmlim.signup.domain.AccountRole;
 import com.jmlim.signup.repo.AccountRepository;
 import com.jmlim.signup.repo.AccountRoleRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +14,17 @@ import java.time.LocalDateTime;
 
 @Service
 public class AccountService {
+    private final AccountRepository accountRepo;
+    private final AccountRoleRepository accountRoleRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    private AccountRepository accountRepo;
-    @Autowired
-    private AccountRoleRepository accountRoleRepo;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
-    private ModelMapper modelMapper;
+    public AccountService(AccountRepository accountRepo, AccountRoleRepository accountRoleRepo, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+        this.accountRepo = accountRepo;
+        this.accountRoleRepo = accountRoleRepo;
+        this.passwordEncoder = passwordEncoder;
+        this.modelMapper = modelMapper;
+    }
 
     @Transactional
     public Long save(AccountDto.Create accountCreateDto) {
@@ -39,5 +40,15 @@ public class AccountService {
                 .role("ROLE_USER").build();
         accountRoleRepo.save(role);
         return id;
+    }
+
+    @Transactional
+    public Long save(Account account) {
+        account = accountRepo.save(account);
+        AccountRole newRole = AccountRole.builder()
+                .parent(account)
+                .role("ROLE_USER").build();
+        accountRoleRepo.save(newRole);
+        return account.getId();
     }
 }
