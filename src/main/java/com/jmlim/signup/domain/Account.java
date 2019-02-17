@@ -2,19 +2,18 @@ package com.jmlim.signup.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jmlim.signup.converter.LocalDateTimePersistenceConverter;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter @Setter @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "JMLIM_ACCOUNT")
-@Getter
-@Setter
-@ToString(callSuper = true, exclude = { "password", "repeatPassword" })
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 

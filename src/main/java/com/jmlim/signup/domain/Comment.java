@@ -3,18 +3,17 @@ package com.jmlim.signup.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jmlim.signup.converter.LocalDateTimePersistenceConverter;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter @Setter @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "JMLIM_COMMENT")
-@Getter
-@Setter
-@ToString
 public class Comment {
 
 	@Id

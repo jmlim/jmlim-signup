@@ -34,9 +34,9 @@ public class AccountService {
         Long id = accountRepo.save(account).getId();
 
         // 권한 입력
-        AccountRole role = new AccountRole();
-        role.setParent(account);
-        role.setRole("ROLE_USER");
+        AccountRole role = AccountRole.builder()
+                .parent(account)
+                .role("ROLE_USER").build();
         accountRoleRepo.save(role);
         return id;
     }
