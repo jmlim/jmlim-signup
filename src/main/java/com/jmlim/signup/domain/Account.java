@@ -1,23 +1,14 @@
 package com.jmlim.signup.domain;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.jmlim.signup.converter.LocalDateTimePersistenceConverter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "JMLIM_ACCOUNT")
@@ -46,7 +37,7 @@ public class Account implements Serializable {
 	@JsonIgnore
 	private String repeatPassword;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
-	private Date joinDate;
+	@Convert(converter = LocalDateTimePersistenceConverter.class)
+	private LocalDateTime joinDate;
 }

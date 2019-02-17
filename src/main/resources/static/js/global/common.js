@@ -69,9 +69,9 @@ function coAjaxFile(reqParam, fd) {
 	    contentType: false,
 	    cache: false,
 	    beforeSend: param.beforeSend,
-		beforeSend : function(request) {
+		/*beforeSend : function(request) {
 			request.setRequestHeader("X-CSRF-TOKEN", _csrf);
-		}, 
+		}, */
         success: function(data){
         	param.success(data);
         },

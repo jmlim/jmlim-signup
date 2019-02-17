@@ -12,19 +12,21 @@ spring:
     password: jmlim1234
   jpa:
     hibernate:
-      ddl-auto: update #create
+      ddl-auto: create
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
-
   messages:
     basename: i18n/messages
     encoding: UTF-8
-
   redis:
     host: localhost #192.168.0.156
     port: 6379
+  ## 스프링 LocalDateTime 포멧팅 관련
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
 
 logging:
   level:

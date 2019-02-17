@@ -49,6 +49,13 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session</artifactId>
 		</dependency>
+
+		<!--localDateTime 시간 포멧 변경 관련 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+
 		<!-- jdbc 세션관리.. 추후 redis로 변경해보기. -->
 <!--		<dependency>
 			<groupId>org.springframework.boot</groupId>

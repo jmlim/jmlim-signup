@@ -1,16 +1,10 @@
 package com.jmlim.signup.security.oauth2;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.jmlim.signup.controller.support.AccountDto;
+import com.jmlim.signup.domain.Account;
+import com.jmlim.signup.domain.AccountRole;
+import com.jmlim.signup.repo.AccountRepository;
+import com.jmlim.signup.repo.AccountRoleRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,11 +13,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.jmlim.signup.controller.support.AccountDto;
-import com.jmlim.signup.domain.Account;
-import com.jmlim.signup.domain.AccountRole;
-import com.jmlim.signup.repo.AccountRepository;
-import com.jmlim.signup.repo.AccountRoleRepository;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 	private String type;
@@ -92,7 +90,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 			account = new Account();
 			account.setEmail(email);
 			account.setType(type);
-			account.setJoinDate(new Date());
+			account.setJoinDate(LocalDateTime.now());
 
 			accountRepository.save(account);
 			AccountRole newRole = new AccountRole();

@@ -1,13 +1,15 @@
 package com.jmlim.signup.controller.support;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.jmlim.signup.converter.LocalDateTimePersistenceConverter;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.Convert;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 원하는 데이터만 주고받고 하기위해 Dto 생성. Rest 방식으로 개발할때 필요. 
@@ -48,6 +50,7 @@ public class AccountDto {
 		// http://stackoverflow.com/questions/29027475/date-format-in-the-json-output-using-spring-boot
 		// json으로 데이터 내보낼 시 포멧이 원하는 대로 나오지 않아 처리한 부분
 		@JsonFormat(pattern = "yyyy-MM-dd")
-		private Date joinDate;
+		@Convert(converter = LocalDateTimePersistenceConverter.class)
+		private LocalDateTime joinDate;
 	}
 }

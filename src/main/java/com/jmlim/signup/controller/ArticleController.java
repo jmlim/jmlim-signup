@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map;
@@ -97,8 +98,8 @@ public class ArticleController {
     @Transactional
     public Long articleCreate(@RequestBody @Valid ArticleDto.Create articleDto) {
         Article article = modelMapper.map(articleDto, Article.class);
-        article.setCreatedDate(new Date());
-        article.setUpdatedDate(new Date());
+       article.setCreatedDate(LocalDateTime.now());
+        article.setUpdatedDate(LocalDateTime.now());
 
         // 현재 세션에 있는 사용자 정보
         Account writer = accountRepo.findByEmail(getUsername());
@@ -135,7 +136,7 @@ public class ArticleController {
 
         article.setTitle(articleDto.getTitle());
         article.setContent(articleDto.getContent());
-        article.setUpdatedDate(new Date());
+        article.setUpdatedDate(LocalDateTime.now());
         return id;
     }
 
@@ -195,7 +196,7 @@ public class ArticleController {
     @Transactional
     public Long commentCreate(@RequestBody @Valid CommentDto.Create commentDto, @PathVariable Long id) {
         Comment comment = modelMapper.map(commentDto, Comment.class);
-        comment.setCreatedDate(new Date());
+        comment.setCreatedDate(LocalDateTime.now());
 
         Article parent = articleRepo.findOne(id);
         comment.setParent(parent);
@@ -209,7 +210,8 @@ public class ArticleController {
     /** comment end */
 
     /**
-     * @param id
+     * @param articleId
+     * @param commentId
      * @return
      */
     // 더 좋은 방법이 있는지 찾아볼것.

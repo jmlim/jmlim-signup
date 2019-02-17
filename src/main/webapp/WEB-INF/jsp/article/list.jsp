@@ -112,7 +112,7 @@
 			var temp = $("#table-template")[0];
 			var clon = temp.content.cloneNode(true);
 			var table = clon.querySelector(".table-row");
-			
+
 			//list
 			if(data && data.totalElements > 0) {
 				console.log(data);
