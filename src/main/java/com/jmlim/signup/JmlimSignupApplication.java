@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.web.ErrorAttributes;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestAttributes;
 
@@ -26,6 +28,15 @@ public class JmlimSignupApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(JmlimSignupApplication.class).properties(PROPERTIES).run(args);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        /**
+         * 스프링 부트 최신버전에 추가.
+         * prefix에 따라 적절한 인코딩 사용.
+         */
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     /**

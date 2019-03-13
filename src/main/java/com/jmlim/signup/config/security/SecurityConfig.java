@@ -26,7 +26,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.web.filter.CompositeFilter;
 
 import com.jmlim.signup.account.AccountRepository;
-import com.jmlim.signup.account.AccountRoleRepository;
 import com.jmlim.signup.config.security.oauth2.ClientResources;
 import com.jmlim.signup.config.security.oauth2.OAuth2SuccessHandler;
 
@@ -35,9 +34,6 @@ import com.jmlim.signup.config.security.oauth2.OAuth2SuccessHandler;
 @EnableWebSecurity
 @EnableOAuth2Client
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
 	OAuth2ClientContext oauth2ClientContext;
@@ -49,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	AccountService accountService;
 
 	@Autowired
-	AccountRoleRepository roleRepository;
+	PasswordEncoder passwordEncoder;
 	
 	/* ===========oauth2 관련============================= */
 	private Filter oauth2Filter() {
@@ -92,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		filter.setRestTemplate(template);
 		filter.setTokenServices(
 				new UserInfoTokenServices(client.getResource().getUserInfoUri(), client.getClient().getClientId()));
-		filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(socialType, accountRepository, accountService, roleRepository));
+		filter.setAuthenticationSuccessHandler(new OAuth2SuccessHandler(socialType, accountRepository, accountService));
 		//filter.setAuthenticationSuccessHandler(
 		//		(request, response, authentication) -> response.sendRedirect(redirectUrl.toString()));
 		filter.setAuthenticationFailureHandler((request, response, exception) -> response.sendRedirect("/error"));
@@ -127,13 +123,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/");
 	}
 
-	@Bean
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(accountService)
+				.passwordEncoder(passwordEncoder);
+	}
+	/*@Bean
 	public PasswordEncoder delegatingPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
-	@Autowired
+*/
+	/*@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(customUserDetailsService).passwordEncoder(delegatingPasswordEncoder());
-	}
+	}*/
 }

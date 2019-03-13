@@ -13,6 +13,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+    # SQL 정렬
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -30,7 +35,10 @@ spring:
 
 logging:
   level:
-    org.hibernate.sql: debug
+    org.hibernate.SQL: debug
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    ## security 로그 보기 위해 설정
+    org.springframework.security: debug
     
 server:
   port: 8180

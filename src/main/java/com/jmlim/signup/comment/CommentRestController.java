@@ -1,11 +1,16 @@
 package com.jmlim.signup.comment;
 
+import com.jmlim.signup.account.Account;
+import com.jmlim.signup.account.AccountRole;
+import com.jmlim.signup.account.CurrentUser;
 import com.jmlim.signup.article.Article;
 import com.jmlim.signup.article.ArticleRepository;
+import com.jmlim.signup.common.exception.ValidCustomException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,7 +37,6 @@ public class CommentRestController {
     // 의 Table 1.1. 참조
     // albums?page=0&size=20&sort=username,asc$sort=name,asc
     @GetMapping(value = "/article/{id}/comment")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     public Page<Comment> findCommentAll(Pageable pageable, @PathVariable Long id) {
         Article article = articleRepo.findOne(id);
@@ -45,9 +49,11 @@ public class CommentRestController {
      * @return
      */
     @PostMapping(value = "/article/{id}/comment")
-    @ResponseBody
-    public Long commentCreate(@RequestBody @Valid CommentDto.Create commentDto, @PathVariable Long id) {
+    public Long commentCreate(@RequestBody @Valid CommentDto.Create commentDto,
+                              @PathVariable Long id,
+                              @CurrentUser Account account) {
         Comment comment = modelMapper.map(commentDto, Comment.class);
+        comment.setWriter(account);
         return commentService.create(comment, id);
     }
 
@@ -60,9 +66,25 @@ public class CommentRestController {
      */
     // 더 좋은 방법이 있는지 찾아볼것.
     @DeleteMapping(value = "/article/{articleId}/comment/{commentId}")
-    @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public Long delete(@PathVariable Long articleId, @PathVariable Long commentId) {
+    public Long delete(@PathVariable Long articleId,
+                       @PathVariable Long commentId,
+                       @CurrentUser Account account) {
+        Comment existingComment = commentRepo.findOne(commentId);
+        boolean hasAdminRole = false;
+        for (AccountRole role : account.getRoles()) {
+            if (role == AccountRole.ADMIN) {
+                hasAdminRole = true;
+            }
+        }
+
+        // ADMIN 권한은 삭제 가능.
+        if (!hasAdminRole) {
+            if (!account.getEmail().equals(existingComment.getWriter())) {
+                throw new ValidCustomException("본인이 작성한 글만 삭제가 가능합니다.", "writer");
+            }
+        }
+
         return commentService.delete(commentId);
     }
 }
